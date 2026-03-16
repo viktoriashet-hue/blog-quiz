@@ -138,6 +138,24 @@ html,body{min-height:100%;font-family:'Mulish',sans-serif;color:var(--text);-web
 .btn-tg{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px;background:#229ED9;color:#fff;border:none;border-radius:var(--rs);font-size:15px;font-weight:700;font-family:'Mulish',sans-serif;cursor:pointer;text-decoration:none;transition:background .18s}
 .btn-tg:active{background:#1a7fb0}
 
+/* AUTHOR BLOCK */
+.author-block{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding:12px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--rs)}
+.author-ava{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--violet));display:flex;align-items:center;justify-content:center;font-family:'Unbounded',sans-serif;font-size:15px;font-weight:700;color:#070911;flex-shrink:0}
+.author-name{font-size:14px;font-weight:700;color:#fff;margin-bottom:2px}
+.author-role{font-size:12px;color:var(--muted)}
+
+/* COUNTER */
+.counter-block{font-size:12px;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:6px}
+.counter-num{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;color:var(--cyan)}
+
+/* FORM SOCIAL */
+.form-social{font-size:12px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:5px}
+.form-social-num{font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;color:var(--green)}
+.no-spam{font-size:12px;color:var(--dim);margin-top:10px;text-align:center}
+
+/* URGENCY */
+.urgency-badge{display:inline-block;background:rgba(246,173,85,0.12);border:1px solid rgba(246,173,85,0.3);color:var(--orange);font-size:11px;font-weight:700;padding:5px 12px;border-radius:100px;margin-bottom:12px;letter-spacing:.02em}
+
 /* ENG LEVELS */
 .eng-bar{display:flex;gap:3px;margin-top:8px}
 .eb{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,0.1)}
@@ -165,13 +183,23 @@ html,body{min-height:100%;font-family:'Mulish',sans-serif;color:var(--text);-web
     <div class="sc on" id="s-intro">
       <div class="badge">⚡ Бесплатный тест</div>
       <h1 class="ititle">Сколько заявок вы теряете из <span class="gr">вашего блога?</span></h1>
-      <p class="idesc">Ответьте на 9 вопросов — я сам посчитаю вовлечённость и покажу реальный потенциал вашего блога</p>
+      <p class="idesc">Ответьте на 8 вопросов — я сам посчитаю вовлечённость и покажу реальный потенциал вашего блога</p>
       <div class="ipts">
         <div class="ipt"><div class="dot"></div><span>Сколько заявок вы можете получать</span></div>
         <div class="ipt"><div class="dot"></div><span>Почему аудитория читает, но не пишет</span></div>
         <div class="ipt"><div class="dot"></div><span>Персональный разбор под вашу нишу</span></div>
       </div>
-      <div class="imeta">⏱ 2 минуты · 9 шагов · бесплатно</div>
+      <div class="author-block">
+        <div class="author-ava">В</div>
+        <div class="author-info">
+          <div class="author-name">Виктория</div>
+          <div class="author-role">Специалист по монетизации блогов</div>
+        </div>
+      </div>
+      <div class="counter-block">
+        <span class="counter-num">847</span> человек уже узнали потенциал своего блога
+      </div>
+      <div class="imeta">⏱ 2 минуты · 8 шагов · бесплатно</div>
       <button class="btnm" onclick="goTo('s-q',0)">Узнать потенциал →</button>
     </div>
 
@@ -181,33 +209,39 @@ html,body{min-height:100%;font-family:'Mulish',sans-serif;color:var(--text);-web
       <div class="qtitle" id="qtitle"></div>
       <div class="qhint" id="qhint"></div>
       <div class="opts" id="opts"></div>
-      <button class="btnm" id="btnNq" onclick="nextQ()" disabled>Далее →</button>
-      <button class="btnb" onclick="backQ()">← Назад</button>
+      <button class="btnb" onclick="backQ()" style="margin-top:20px">← Назад</button>
     </div>
 
     <!-- NUMBERS SCREEN -->
     <div class="sc" id="s-nums">
-      <div class="qtag">Шаг 5 из 9</div>
+      <div class="qtag">Шаг 4 из 8</div>
       <div class="qtitle">Статистика вашего блога</div>
       <div class="qhint">Введите средние показатели — я сам посчитаю уровень вовлечённости</div>
       <div class="num-group">
         <div class="num-item">
+          <div class="nlabel">Подписчиков в блоге</div>
+          <input class="ni" id="n-subs" type="number" min="0" placeholder="например: 12000" oninput="updateEng()">
+          <div class="ni-hint">Общее количество подписчиков на основной площадке</div>
+        </div>
+        <div class="num-item">
           <div class="nlabel">Охват поста <span>(просмотров за 24ч)</span></div>
           <input class="ni" id="n-post" type="number" min="0" placeholder="например: 1200" oninput="updateEng()">
-          <div class="ni-hint">Среднее количество просмотров одного поста</div>
+          <div class="ni-hint">Instagram → Статистика → Охват публикации → среднее за последние 5–7 постов</div>
         </div>
         <div class="num-item">
           <div class="nlabel">Охват сторис <span>(просмотров за 24ч)</span></div>
           <input class="ni" id="n-story" type="number" min="0" placeholder="например: 800" oninput="updateEng()">
-          <div class="ni-hint">Среднее количество просмотров одной сторис</div>
+          <div class="ni-hint">Instagram → Статистика → Сторис → среднее просмотров. Если нет сторис — поставьте 0</div>
         </div>
         <div class="num-item">
           <div class="nlabel">Лайков на пост <span>(среднее)</span></div>
           <input class="ni" id="n-likes" type="number" min="0" placeholder="например: 45" oninput="updateEng()">
+          <div class="ni-hint">Посмотрите на последние 5 постов и возьмите среднее</div>
         </div>
         <div class="num-item">
           <div class="nlabel">Комментариев на пост <span>(среднее)</span></div>
           <input class="ni" id="n-comments" type="number" min="0" placeholder="например: 12" oninput="updateEng()">
+          <div class="ni-hint">Включая ответы на комментарии — среднее по последним постам</div>
         </div>
       </div>
       <div class="eng-preview" id="eng-preview">
@@ -227,24 +261,17 @@ html,body{min-height:100%;font-family:'Mulish',sans-serif;color:var(--text);-web
     <!-- FORM SCREEN -->
     <div class="sc" id="s-form">
       <div class="form-block">
-        <div class="ftag">Почти готово</div>
-        <div class="ftitle">Введите контакты — и я покажу результат</div>
-        <div class="fsub">Пришлю персональный разбор вашего блога под вашу нишу</div>
+        <div class="ftag">Последний шаг</div>
+        <div class="ftitle">Пришлю результат и персональный разбор</div>
+        <div class="fsub">Укажите контакты — отправлю рекомендации по вашему блогу</div>
+        <div class="form-social">
+          <span class="form-social-num">847</span> человек уже получили разбор
+        </div>
         <div class="fields">
-          <div class="fi-wrap">
-            <div class="flabel">Имя</div>
-            <input class="fi" id="fn" type="text" placeholder="Как вас зовут?" autocomplete="name">
-            <div class="ferr" id="err-fn">Введите ваше имя</div>
-          </div>
-          <div class="fi-wrap">
-            <div class="flabel">Telegram</div>
-            <input class="fi" id="ft" type="text" placeholder="@username" autocomplete="off" oninput="normTg(this)">
-            <div class="ferr" id="err-ft">Введите @username (минимум 3 символа после @)</div>
-          </div>
           <div class="fi-wrap">
             <div class="flabel">Телефон</div>
             <input class="fi" id="fp" type="tel" placeholder="+7 900 000-00-00" autocomplete="tel" oninput="normPhone(this)">
-            <div class="ferr" id="err-fp">Введите корректный номер телефона (10–12 цифр)</div>
+            <div class="ferr" id="err-fp">Введите корректный номер (10–12 цифр)</div>
           </div>
           <div class="fi-wrap">
             <div class="flabel">Email</div>
@@ -252,8 +279,9 @@ html,body{min-height:100%;font-family:'Mulish',sans-serif;color:var(--text);-web
             <div class="ferr" id="err-fe">Введите корректный email адрес</div>
           </div>
         </div>
+        <div class="no-spam">Без спама. Только результат теста и разбор блога.</div>
         <div class="ferr" id="err-gen" style="margin-top:10px;font-size:13px"></div>
-        <button class="btnm" id="btnForm" onclick="submitForm()" style="margin-top:20px">Показать результат →</button>
+        <button class="btnm" id="btnForm" onclick="submitForm()" style="margin-top:16px">Показать результат →</button>
       </div>
       <button class="btnb" onclick="goBack('s-nums')">← Назад</button>
     </div>
@@ -285,11 +313,12 @@ html,body{min-height:100%;font-family:'Mulish',sans-serif;color:var(--text);-web
         <div class="case-sub">Читать разбор на сайте</div>
       </a>
       <div class="razbor-box">
-        <div class="razbor-title">Хотите разобрать ваш блог?</div>
-        <div class="razbor-sub">Покажу точки роста конкретно под вашу нишу и стратегию внедрения системы заявок</div>
+        <div class="urgency-badge">Беру 2 проекта в апреле · 1 место уже занято</div>
+        <div class="razbor-title">Разобрать мой блог бесплатно</div>
+        <div class="razbor-sub">Покажу точки роста под вашу нишу и конкретный план внедрения системы заявок</div>
         <a href="https://t.me/+-WBNJn7Y0NdkYjRi" target="_blank" class="btn-tg">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-          Перейти в Telegram-канал
+          Написать Виктории →
         </a>
       </div>
     </div>
@@ -314,9 +343,6 @@ const QS=[
   {title:'Средний чек вашего продукта?',hint:'Укажите стоимость основного предложения',opts:[
     {i:'💵',t:'До 5 000 ₽'},{i:'💴',t:'5 000 — 15 000 ₽'},{i:'💶',t:'15 000 — 50 000 ₽'},
     {i:'💷',t:'50 000 — 150 000 ₽'},{i:'💰',t:'Выше 150 000 ₽'}]},
-  {title:'Сколько подписчиков в блоге?',hint:'По основной площадке, где ведёте блог',opts:[
-    {i:'🌱',t:'5 000 — 10 000'},{i:'📈',t:'10 000 — 30 000'},{i:'🚀',t:'30 000 — 100 000'},
-    {i:'⭐',t:'100 000 — 500 000'},{i:'🔥',t:'Более 500 000'}]},
 ];
 
 let cur=0, ans=[], sel=null;
@@ -328,13 +354,13 @@ let cur=0, ans=[], sel=null;
 function show(id){document.querySelectorAll('.sc').forEach(s=>s.classList.remove('on'));document.getElementById(id).classList.add('on');window.scrollTo(0,0)}
 function prog(pct,lbl){document.getElementById('pf').style.width=pct+'%';document.getElementById('slbl').textContent=lbl}
 
-function goTo(screen,step){show(screen);if(step!==undefined){cur=step;renderQ();}prog(Math.round((cur+1)/9*85),(cur+1)+' / 9')}
+function goTo(screen,step){show(screen);if(step!==undefined){cur=step;renderQ();}prog(Math.round((cur+1)/8*85),(cur+1)+' / 8')}
 function goBack(screen){show(screen)}
 
 // ── CHOICE QUESTIONS ──
 function renderQ(){
   const q=QS[cur];
-  document.getElementById('qtag').textContent='Шаг '+(cur+1)+' из 9';
+  document.getElementById('qtag').textContent='Шаг '+(cur+1)+' из 8';
   document.getElementById('qtitle').textContent=q.title;
   document.getElementById('qhint').textContent=q.hint;
   sel=ans[cur]!==undefined?ans[cur]:null;
@@ -354,17 +380,17 @@ function renderQ(){
 function pick(i){
   sel=i;ans[cur]=i;
   document.querySelectorAll('.opt').forEach((el,idx)=>el.classList.toggle('sel',idx===i));
-  document.getElementById('btnNq').disabled=false;
+  // auto-advance after short delay
+  setTimeout(()=>nextQ(),220);
 }
 
 function nextQ(){
   if(sel===null)return;
-  if(cur<QS.length-1){cur++;renderQ();prog(Math.round((cur+1)/9*85),(cur+1)+' / 9');}
-  else{show('s-nums');prog(Math.round(5/9*85),'5 / 9');}
+  if(cur<QS.length-1){cur++;renderQ();prog(Math.round((cur+1)/8*85),(cur+1)+' / 8');}
+  else{show('s-nums');prog(Math.round(4/8*85),'4 / 8');}
 }
-
 function backQ(){
-  if(cur>0){cur--;renderQ();prog(Math.round((cur+1)/9*85),(cur+1)+' / 9');}
+  if(cur>0){cur--;renderQ();prog(Math.round((cur+1)/8*85),(cur+1)+' / 8');}
   else{show('s-intro');prog(0,'');}
 }
 
@@ -407,7 +433,7 @@ function updateEng(){
 function nextNums(){
   const post=getNum('n-post');
   if(!post){return;}
-  show('s-form');prog(Math.round(6/9*85),'6 / 9');
+  show('s-form');prog(Math.round(6/8*85),'6 / 8');
 }
 
 // ── VALIDATION ──
@@ -436,14 +462,10 @@ function showErr(id,errId,show){
 
 // ── FORM SUBMIT ──
 async function submitForm(){
-  const name=document.getElementById('fn').value.trim();
-  const tg=document.getElementById('ft').value.trim();
   const phone=document.getElementById('fp').value.trim();
   const email=document.getElementById('fe').value.trim();
 
   let ok=true;
-  ok=showErr('fn','err-fn',!validName(name))&&ok;
-  ok=showErr('ft','err-ft',!validTg(tg))&&ok;
   ok=showErr('fp','err-fp',!validPhone(phone))&&ok;
   ok=showErr('fe','err-fe',!validEmail(email))&&ok;
   if(!ok)return;
@@ -451,14 +473,11 @@ async function submitForm(){
   const btn=document.getElementById('btnForm');
   btn.disabled=true;btn.textContent='Отправляем...';
 
-  // calc
   const prices=[2500,10000,32500,100000,200000];
-  const subsV=[7500,20000,65000,300000,750000];
   const price=prices[ans[2]]||15000;
-  const subs=subsV[ans[3]]||15000;
+  const subs=getNum('n-subs')||1000;
   const eng=window._eng||{er:0,level:1,post:0,story:0,likes:0,comments:0};
 
-  // conv rate by engagement level
   const convRates=[0.01,0.02,0.04,0.06,0.12];
   const conv=convRates[Math.max(0,eng.level-1)];
   const reachForCalc=eng.post||subs*0.05;
@@ -471,13 +490,10 @@ async function submitForm(){
 
   window._res={lMax,lNow,lLost,rMax,rLost,eng,price};
 
-  // telegram message
   const g=(q)=>QS[q]?.opts[ans[q]]?.t||'—';
   const msg=
 `🔥 *Новая заявка с квиза*
 
-👤 *Имя:* ${name}
-📱 *Telegram:* ${tg}
 📞 *Телефон:* ${phone}
 📧 *Email:* ${email}
 
@@ -486,21 +502,21 @@ async function submitForm(){
 🎯 Ниша: ${g(0)}
 💼 Продукт: ${g(1)}
 💰 Чек: ${g(2)}
-👥 Подписчики: ${g(3)}
+👥 Подписчиков: ${subs}
 
 📈 *Статистика:*
 👁 Охват поста: ${eng.post}
 📖 Охват сторис: ${eng.story}
 ❤️ Лайков: ${eng.likes}
 💬 Комментариев: ${eng.comments}
-🔥 Вовлечённость (ER): *${eng.er}%* (уровень ${eng.level}/5)
+🔥 ER: *${eng.er}%* (уровень ${eng.level}/5)
 
 ─────────────────
 📈 *Потенциал:*
 ❌ Теряет заявок/мес: *${lLost}*
 ✅ Мог бы получать: *${lMax}*
 💸 Теряет выручки: *${fmoney(rLost)}*
-🚀 Потенциал выручки: *${fmoney(rMax)}*`;
+🚀 Потенциал: *${fmoney(rMax)}*`;
 
   try{
     await fetch(`https://api.telegram.org/bot${BOT}/sendMessage`,{
