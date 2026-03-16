@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Потенциал вашего блога</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --surface:rgba(255,255,255,0.04);
+  --surface-h:rgba(255,255,255,0.07);
+  --border:rgba(255,255,255,0.09);
+  --ba:rgba(99,179,237,0.45);
+  --cyan:#63b3ed;
+  --cyanb:#90cdf4;
+  --violet:#b794f4;
+  --violetb:#d6bcfa;
+  --green:#68d391;
+  --orange:#f6ad55;
+  --red:#fc8181;
+  --text:#e2e8f0;
+  --muted:#718096;
+  --dim:#4a5568;
+  --r:14px;--rs:10px;
+}
+html,body{min-height:100%;font-family:'Mulish',sans-serif;color:var(--text);-webkit-font-smoothing:antialiased;background:#070911}
+
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(99,179,237,0.08) 0%,transparent 70%),
+  radial-gradient(ellipse 60% 40% at 90% 85%,rgba(183,148,244,0.06) 0%,transparent 70%),
+  radial-gradient(ellipse 50% 30% at 5% 60%,rgba(99,179,237,0.04) 0%,transparent 70%)}
+#stars{position:absolute;inset:0}
+#stars span{position:absolute;border-radius:50%;background:#fff;animation:tw var(--d) var(--dl) infinite alternate}
+@keyframes tw{0%{opacity:.15}100%{opacity:.75}}
+
+.wrap{position:relative;z-index:1;width:100%;max-width:460px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
+
+.hd{padding:18px 22px 14px;background:rgba(7,9,17,0.88);backdrop-filter:blur(16px);position:sticky;top:0;z-index:10;border-bottom:1px solid var(--border)}
+.hd-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
+.logo{font-family:'Unbounded',sans-serif;font-size:10px;font-weight:700;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase}
+.slbl{font-family:'Unbounded',sans-serif;font-size:11px;color:var(--muted);font-weight:600}
+.pt{height:3px;background:rgba(255,255,255,0.06);border-radius:2px;position:relative;overflow:visible}
+.pf{height:100%;background:linear-gradient(90deg,var(--cyan),var(--violet));border-radius:2px;transition:width .5s cubic-bezier(.4,0,.2,1);position:relative}
+.pf::after{content:'';position:absolute;right:-3px;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:50%;background:var(--violetb);box-shadow:0 0 10px var(--violet)}
+
+.ct{flex:1;padding:26px 22px 36px;display:flex;flex-direction:column}
+.sc{display:none;flex-direction:column;flex:1;animation:fu .3s ease}
+.sc.on{display:flex}
+@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* INTRO */
+.badge{display:inline-flex;align-items:center;background:rgba(99,179,237,0.1);border:1px solid rgba(99,179,237,0.22);color:var(--cyanb);font-size:11px;font-weight:700;padding:5px 13px;border-radius:100px;margin-bottom:20px;width:fit-content;letter-spacing:.06em;text-transform:uppercase}
+.ititle{font-family:'Unbounded',sans-serif;font-size:22px;font-weight:700;line-height:1.3;color:#fff;margin-bottom:13px}
+.gr{background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.idesc{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:24px}
+.ipts{display:flex;flex-direction:column;gap:11px;margin-bottom:24px}
+.ipt{display:flex;align-items:center;gap:11px;font-size:14px;color:var(--text);font-weight:500}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);flex-shrink:0}
+.imeta{font-size:12px;color:var(--dim);margin-bottom:24px;font-weight:600}
+
+/* QUESTION */
+.qtag{font-family:'Unbounded',sans-serif;font-size:10px;font-weight:700;color:var(--violet);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.qtitle{font-family:'Unbounded',sans-serif;font-size:17px;font-weight:700;line-height:1.35;color:#fff;margin-bottom:7px}
+.qhint{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{padding:13px 16px;border:1px solid var(--border);border-radius:var(--rs);font-size:14px;font-weight:600;color:var(--text);background:var(--surface);cursor:pointer;transition:all .17s;text-align:left;display:flex;align-items:center;gap:12px;font-family:'Mulish',sans-serif;width:100%}
+.oic{font-size:18px;width:26px;text-align:center;flex-shrink:0}
+.opt:active{transform:scale(.98)}
+.opt:hover{background:var(--surface-h);border-color:rgba(255,255,255,0.15)}
+.opt.sel{border-color:var(--ba);background:rgba(99,179,237,0.08);color:var(--cyanb)}
+.opt.sel::after{content:'✓';margin-left:auto;font-size:13px;font-weight:700;color:var(--cyan)}
+
+/* RESULT */
+.rhero{background:linear-gradient(135deg,rgba(99,179,237,0.08),rgba(183,148,244,0.08));border:1px solid rgba(99,179,237,0.14);border-radius:var(--r);padding:20px;margin-bottom:16px}
+.rtag{font-family:'Unbounded',sans-serif;font-size:10px;font-weight:700;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.rheadline{font-family:'Unbounded',sans-serif;font-size:15px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:10px}
+.rheadline .hi{color:var(--cyan)}
+.rbody{font-size:13px;color:var(--muted);line-height:1.65}
+
+.mrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.mc{background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:14px 12px;text-align:center}
+.mv{font-family:'Unbounded',sans-serif;font-size:19px;font-weight:700;display:block;margin-bottom:4px}
+.mv.g{color:var(--green)}.mv.r{color:var(--red)}.mv.c{color:var(--cyan)}.mv.o{color:var(--orange)}
+.ml{font-size:11px;color:var(--muted);line-height:1.35;font-weight:600}
+
+.lbox{background:rgba(252,129,129,0.07);border:1px solid rgba(252,129,129,0.18);border-radius:var(--r);padding:16px 18px;margin-bottom:16px;display:flex;align-items:flex-start;gap:12px}
+.lic{font-size:20px;flex-shrink:0;margin-top:1px}
+.ltext{font-size:13px;color:#fbd5d5;line-height:1.55;font-weight:500}
+.ltext strong{color:var(--red);font-weight:700}
+
+.sysbox{border-radius:var(--r);padding:16px 18px;margin-bottom:16px;background:rgba(104,211,145,0.06);border:1px solid rgba(104,211,145,0.18)}
+.systitle{font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;color:var(--green);margin-bottom:7px;text-transform:uppercase;letter-spacing:.05em}
+.systext{font-size:13px;color:#c6f6d5;line-height:1.6}
+
+.ctabox{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;margin-bottom:16px}
+.ctatitle{font-family:'Unbounded',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:6px}
+.ctasub{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:18px}
+
+.flabel{font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+.fields{display:flex;flex-direction:column;gap:10px;margin-bottom:6px}
+.fi{width:100%;padding:13px 15px;border:1px solid var(--border);border-radius:var(--rs);font-size:14px;font-family:'Mulish',sans-serif;color:var(--text);background:rgba(255,255,255,0.04);transition:border-color .18s;-webkit-appearance:none}
+.fi:focus{outline:none;border-color:rgba(99,179,237,0.5);background:rgba(99,179,237,0.04)}
+.fi::placeholder{color:var(--dim)}
+.errmsg{font-size:12px;color:var(--red);margin-top:8px;display:none}
+
+/* SUCCESS */
+.okwrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px 0}
+.okc{width:76px;height:76px;border-radius:50%;border:1.5px solid rgba(104,211,145,0.4);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 20px;background:rgba(104,211,145,0.07);box-shadow:0 0 30px rgba(104,211,145,0.1)}
+.oktitle{font-family:'Unbounded',sans-serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:10px;line-height:1.3}
+.oktext{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:28px}
+.tgbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px;background:#229ED9;color:#fff;border:none;border-radius:var(--rs);font-size:15px;font-weight:700;font-family:'Mulish',sans-serif;cursor:pointer;text-decoration:none;transition:background .18s}
+.tgbtn:active{background:#1a7fb0}
+
+/* BUTTONS */
+.btnm{width:100%;padding:15px;background:linear-gradient(135deg,var(--cyan),var(--violet));color:#070911;border:none;border-radius:var(--rs);font-size:15px;font-weight:700;font-family:'Mulish',sans-serif;cursor:pointer;transition:opacity .18s,transform .1s;margin-top:20px;letter-spacing:.01em}
+.btnm:active{transform:scale(.98);opacity:.9}
+.btnm:disabled{opacity:.4;cursor:default}
+.btnb{background:none;border:none;color:var(--dim);font-size:13px;font-family:'Mulish',sans-serif;cursor:pointer;padding:0;margin-top:12px;text-align:center;width:100%;font-weight:600;transition:color .15s}
+.btnb:hover{color:var(--muted)}
+
+@media(min-width:480px){body{padding:24px 16px}.wrap{min-height:auto;border-radius:20px;overflow:hidden;border:1px solid var(--border)}}
+</style>
+</head>
+<body>
+<div class="bg"><div id="stars"></div></div>
+<div class="wrap">
+
+  <div class="hd">
+    <div class="hd-row">
+      <div class="logo">Блог · Потенциал</div>
+      <div class="slbl" id="slbl"></div>
+    </div>
+    <div class="pt"><div class="pf" id="pf" style="width:0%"></div></div>
+  </div>
+
+  <div class="ct">
+
+    <!-- INTRO -->
+    <div class="sc on" id="s0">
+      <div class="badge">⚡ Бесплатный тест</div>
+      <h1 class="ititle">Сколько заявок вы теряете из <span class="gr">вашего блога?</span></h1>
+      <p class="idesc">Пройдите 8 вопросов — узнайте реальный потенциал блога и что мешает охватам превращаться в заявки</p>
+      <div class="ipts">
+        <div class="ipt"><div class="dot"></div><span>Сколько заявок вы можете получать</span></div>
+        <div class="ipt"><div class="dot"></div><span>Почему аудитория читает, но не пишет</span></div>
+        <div class="ipt"><div class="dot"></div><span>Персональный разбор под вашу нишу</span></div>
+      </div>
+      <div class="imeta">⏱ 2 минуты · 8 вопросов · бесплатно</div>
+      <button class="btnm" onclick="startQuiz()">Узнать потенциал →</button>
+    </div>
+
+    <!-- QUESTION -->
+    <div class="sc" id="s1">
+      <div class="qtag" id="qtag">Вопрос 1 из 8</div>
+      <div class="qtitle" id="qtitle"></div>
+      <div class="qhint" id="qhint"></div>
+      <div class="opts" id="opts"></div>
+      <button class="btnm" id="btnN" onclick="next()" disabled>Далее →</button>
+      <button class="btnb" onclick="back()">← Назад</button>
+    </div>
+
+    <!-- RESULT -->
+    <div class="sc" id="s2">
+      <div class="rhero">
+        <div class="rtag">Ваш результат</div>
+        <div class="rheadline" id="rh"></div>
+        <div class="rbody" id="rb"></div>
+      </div>
+      <div class="mrow">
+        <div class="mc"><span class="mv r" id="mL">—</span><div class="ml">теряете заявок/мес</div></div>
+        <div class="mc"><span class="mv g" id="mG">—</span><div class="ml">можете получать</div></div>
+        <div class="mc"><span class="mv o" id="mRL">—</span><div class="ml">теряете выручки</div></div>
+        <div class="mc"><span class="mv c" id="mRG">—</span><div class="ml">потенциал в месяц</div></div>
+      </div>
+      <div class="lbox">
+        <div class="lic">⚠️</div>
+        <div class="ltext" id="lt"></div>
+      </div>
+      <div class="sysbox">
+        <div class="systitle">Что я делаю</div>
+        <div class="systext">Я внедряю систему, которая превращает охваты в поток заявок: контент → комментарии → Telegram → бот → продажа. Это не про больше постов — это про архитектуру монетизации блога.</div>
+      </div>
+      <div class="ctabox">
+        <div class="ctatitle">Разобрать мой блог</div>
+        <div class="ctasub">Оставьте контакты — покажу точки роста конкретно под вашу нишу и стратегию внедрения</div>
+        <div class="fields">
+          <div><div class="flabel">Имя</div><input class="fi" id="fn" type="text" placeholder="Как вас зовут?"></div>
+          <div><div class="flabel">Telegram</div><input class="fi" id="ft" type="text" placeholder="@username"></div>
+          <div><div class="flabel">Телефон</div><input class="fi" id="fp" type="tel" placeholder="+7 900 000-00-00"></div>
+          <div><div class="flabel">Email</div><input class="fi" id="fe" type="email" placeholder="your@email.com"></div>
+        </div>
+        <div class="errmsg" id="err">Заполните все поля, пожалуйста</div>
+        <button class="btnm" id="btnS" onclick="submit()" style="margin-top:16px">Разобрать мой блог →</button>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="sc" id="s3">
+      <div class="okwrap">
+        <div class="okc">✓</div>
+        <div class="oktitle">Заявка принята!</div>
+        <p class="oktext">Свяжусь с вами в течение 24 часов и пришлю персональный разбор под вашу нишу</p>
+        <a href="https://t.me/vikashet" target="_blank" class="tgbtn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          Написать @vikashet
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const BOT='8778527672:AAGpOi7qh0jS9GpJIOsZeOZrV2lcH566D1o', CID='327487258';
+
+const QS=[
+  {title:'Какая у вас ниша?',hint:'Выберите направление, наиболее близкое к вашей теме',opts:[
+    {i:'💼',t:'Бизнес / предпринимательство'},{i:'💆',t:'Психология / коучинг / саморазвитие'},
+    {i:'📱',t:'SMM / маркетинг / продвижение'},{i:'💪',t:'Здоровье / фитнес / нутрициология'},
+    {i:'🎨',t:'Творчество / дизайн / искусство'},{i:'👗',t:'Мода / бьюти / стиль'},
+    {i:'📚',t:'Образование / онлайн-курсы'},{i:'✈️',t:'Travel / лайфстайл'},{i:'🔧',t:'Другая ниша'}]},
+  {title:'Что вы продаёте?',hint:'Выберите основной тип продукта или услуги',opts:[
+    {i:'🎓',t:'Онлайн-курс / обучение'},{i:'🤝',t:'Консультации / менторство'},
+    {i:'⚙️',t:'Услуга под ключ'},{i:'📦',t:'Физический продукт'},
+    {i:'🔄',t:'Подписка / членство'},{i:'🧩',t:'Несколько продуктов'},{i:'🤔',t:'Пока не продаю, планирую'}]},
+  {title:'Средний чек вашего продукта?',hint:'Укажите стоимость основного предложения',opts:[
+    {i:'💵',t:'До 5 000 ₽'},{i:'💴',t:'5 000 — 15 000 ₽'},{i:'💶',t:'15 000 — 50 000 ₽'},
+    {i:'💷',t:'50 000 — 150 000 ₽'},{i:'💰',t:'Выше 150 000 ₽'}]},
+  {title:'Сколько подписчиков в блоге?',hint:'Суммарно по основной площадке',opts:[
+    {i:'🌱',t:'5 000 — 10 000'},{i:'📈',t:'10 000 — 30 000'},{i:'🚀',t:'30 000 — 100 000'},
+    {i:'⭐',t:'100 000 — 500 000'},{i:'🔥',t:'Более 500 000'}]},
+  {title:'Охват одного поста за 24 часа?',hint:'Примерный % от числа подписчиков',opts:[
+    {i:'😔',t:'Менее 3% — очень низкий'},{i:'😐',t:'3–8% — ниже среднего'},
+    {i:'🙂',t:'8–15% — средний'},{i:'😊',t:'15–25% — хороший'},{i:'🤩',t:'Более 25% — высокий'}]},
+  {title:'Уровень вовлечённости в постах?',hint:'Комментарии, реакции, ответы на сторис',opts:[
+    {i:'❄️',t:'Низкий — редкие реакции'},{i:'🌤',t:'Средний — есть активность'},
+    {i:'☀️',t:'Высокий — регулярные комментарии'},{i:'🔥',t:'Очень высокий — аудитория живая'}]},
+  {title:'Покупали рекламу или продвижение?',hint:'Таргет, блогеры, посевы и т.д.',opts:[
+    {i:'🚫',t:'Нет, не пробовал(а)'},{i:'🧪',t:'Пробовал(а), результат слабый'},
+    {i:'✅',t:'Да, заявки были'},{i:'🔄',t:'Регулярно запускаю'}]},
+  {title:'Основной источник трафика сейчас?',hint:'Откуда приходят ваши подписчики',opts:[
+    {i:'📸',t:'Instagram / Reels'},{i:'✈️',t:'Telegram-канал'},{i:'🎵',t:'TikTok'},
+    {i:'▶️',t:'YouTube'},{i:'🌐',t:'Несколько платформ'},{i:'🤷',t:'Органика, не знаю точно'}]},
+];
+
+let cur=0,ans=[],sel=null;
+
+// stars
+(()=>{const c=document.getElementById('stars');for(let i=0;i<80;i++){const s=document.createElement('span');const sz=Math.random()*1.5+.5;s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${sz}px;height:${sz}px;--d:${2+Math.random()*4}s;--dl:${Math.random()*4}s;opacity:${.15+Math.random()*.6}`;c.appendChild(s);}})();
+
+function show(id){document.querySelectorAll('.sc').forEach(s=>s.classList.remove('on'));document.getElementById(id).classList.add('on')}
+function prog(pct,lbl){document.getElementById('pf').style.width=pct+'%';document.getElementById('slbl').textContent=lbl}
+
+function startQuiz(){cur=0;ans=[];sel=null;show('s1');render();prog(5,'1 / 8')}
+
+function render(){
+  const q=QS[cur];
+  document.getElementById('qtag').textContent='Вопрос '+(cur+1)+' из '+QS.length;
+  document.getElementById('qtitle').textContent=q.title;
+  document.getElementById('qhint').textContent=q.hint;
+  sel=ans[cur]!==undefined?ans[cur]:null;
+  const w=document.getElementById('opts');w.innerHTML='';
+  q.opts.forEach((o,i)=>{
+    const b=document.createElement('button');
+    b.className='opt'+(sel===i?' sel':'');
+    b.innerHTML=`<span class="oic">${o.i}</span><span>${o.t}</span>`;
+    b.onclick=()=>pick(i);w.appendChild(b);
+  });
+  const bn=document.getElementById('btnN');
+  bn.disabled=sel===null;
+  bn.textContent=cur===QS.length-1?'Посмотреть результат →':'Далее →';
+}
+
+function pick(i){
+  sel=i;ans[cur]=i;
+  document.querySelectorAll('.opt').forEach((el,idx)=>el.classList.toggle('sel',idx===i));
+  document.getElementById('btnN').disabled=false;
+}
+
+function next(){
+  if(sel===null)return;
+  if(cur<QS.length-1){cur++;render();prog(Math.round((cur+1)/QS.length*88),(cur+1)+' / '+QS.length);}
+  else showResult();
+}
+
+function back(){
+  if(cur>0){cur--;render();prog(Math.round((cur+1)/QS.length*88),(cur+1)+' / '+QS.length);}
+  else{show('s0');prog(0,'');}
+}
+
+function calc(){
+  const prices=[2500,10000,32500,100000,200000];
+  const subsV=[7500,20000,65000,300000,750000];
+  const reachP=[0.02,0.055,0.115,0.2,0.3];
+  const convR=[0.01,0.03,0.08,0.13];
+  const price=prices[ans[2]]||15000;
+  const subs=subsV[ans[3]]||15000;
+  const rp=reachP[ans[4]]||0.05;
+  const conv=convR[ans[5]]||0.02;
+  const reach=Math.round(subs*rp);
+  const lMax=Math.round(reach*conv*12);
+  const lNow=Math.round(lMax*0.06);
+  const lLost=lMax-lNow;
+  const sp=0.2;
+  const rMax=Math.round(lMax*sp*price);
+  const rNow=Math.round(lNow*sp*price);
+  const rLost=rMax-rNow;
+  return{lMax,lNow,lLost,rMax,rNow,rLost,engIdx:ans[5]||0};
+}
+
+function fmoney(n){
+  if(n>=1000000)return(n/1e6).toFixed(1)+' млн ₽';
+  if(n>=1000)return Math.round(n/1000)+' тыс ₽';
+  return n+' ₽';
+}
+
+function showResult(){
+  const r=calc();
+  const lo=Math.max(1,Math.round(r.lMax*.7));
+
+  document.getElementById('rh').innerHTML=
+    `При текущих охватах вы могли бы получать <span class="hi">${lo}–${r.lMax} заявок в месяц.</span>`;
+
+  const bodies=[
+    'Сейчас вовлечённость низкая — конверсия 1–3%. Аудитория просто читает контент, не делая следующего шага. Система монетизации не настроена.',
+    'Средняя вовлечённость — люди реагируют, но нет системы, которая конвертирует их в заявки. Большая часть охватов уходит в никуда.',
+    'Хорошая вовлечённость — аудитория живая. Но без системы заявок даже активная аудитория просто читает и не покупает.',
+    'Высокая вовлечённость — большой актив. При правильной системе конверсия 10–15% реальна уже в первый месяц.',
+  ];
+  document.getElementById('rb').textContent=bodies[r.engIdx];
+
+  document.getElementById('mL').textContent=r.lLost;
+  document.getElementById('mG').textContent=r.lMax;
+  document.getElementById('mRL').textContent=fmoney(r.rLost);
+  document.getElementById('mRG').textContent=fmoney(r.rMax);
+
+  const losts=[
+    `Система монетизации не настроена — поэтому <strong>${r.lLost} заявок в месяц</strong> просто теряются. Аудитория читает контент, но не знает, как к вам обратиться.`,
+    `Нет чёткого пути от контента к заявке. Из-за этого <strong>${r.lLost} потенциальных клиентов</strong> каждый месяц уходят, ничего не купив.`,
+    `Даже при хорошей вовлечённости — без воронки <strong>${r.lLost} заявок в месяц</strong> остаются на столе. Люди готовы, но не знают следующего шага.`,
+    `С вашей аудиторией вы теряете <strong>${r.lLost} горячих заявок каждый месяц</strong> только из-за отсутствия системы.`,
+  ];
+  document.getElementById('lt').innerHTML=losts[r.engIdx];
+
+  show('s2');prog(94,'Результат');
+  window.scrollTo(0,0);
+}
+
+async function submit(){
+  const name=document.getElementById('fn').value.trim();
+  const tg=document.getElementById('ft').value.trim();
+  const phone=document.getElementById('fp').value.trim();
+  const email=document.getElementById('fe').value.trim();
+  const err=document.getElementById('err');
+  if(!name||!tg||!phone||!email){err.style.display='block';return;}
+  err.style.display='none';
+  const btn=document.getElementById('btnS');
+  btn.disabled=true;btn.textContent='Отправляем...';
+  const r=calc();
+  const g=(q)=>QS[q].opts[ans[q]]?.t||'—';
+  const msg=`🔥 *Новая заявка с квиза*\n\n👤 *Имя:* ${name}\n📱 *Telegram:* ${tg}\n📞 *Телефон:* ${phone}\n📧 *Email:* ${email}\n\n─────────────────\n📊 *Данные блога:*\n🎯 Ниша: ${g(0)}\n💼 Продукт: ${g(1)}\n💰 Чек: ${g(2)}\n👥 Подписчики: ${g(3)}\n👁 Охват: ${g(4)}\n💬 Вовлечённость: ${g(5)}\n📣 Реклама: ${g(6)}\n🌐 Трафик: ${g(7)}\n\n─────────────────\n📈 *Расчёт:*\n❌ Теряет заявок/мес: *${r.lLost}*\n✅ Потенциал заявок: *${r.lMax}*\n💸 Теряет выручки: *${fmoney(r.rLost)}*\n🚀 Потенциал выручки: *${fmoney(r.rMax)}*`;
+  try{
+    await fetch(`https://api.telegram.org/bot${BOT}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:CID,text:msg,parse_mode:'Markdown'})});
+  }catch(e){}
+  prog(100,'Готово!');show('s3');window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
