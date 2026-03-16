@@ -12,20 +12,13 @@
   --surface-h:rgba(255,255,255,0.07);
   --border:rgba(255,255,255,0.09);
   --ba:rgba(99,179,237,0.45);
-  --cyan:#63b3ed;
-  --cyanb:#90cdf4;
-  --violet:#b794f4;
-  --violetb:#d6bcfa;
-  --green:#68d391;
-  --orange:#f6ad55;
-  --red:#fc8181;
-  --text:#e2e8f0;
-  --muted:#718096;
-  --dim:#4a5568;
+  --cyan:#63b3ed;--cyanb:#90cdf4;
+  --violet:#b794f4;--violetb:#d6bcfa;
+  --green:#68d391;--orange:#f6ad55;--red:#fc8181;
+  --text:#e2e8f0;--muted:#718096;--dim:#4a5568;
   --r:14px;--rs:10px;
 }
 html,body{min-height:100%;font-family:'Mulish',sans-serif;color:var(--text);-webkit-font-smoothing:antialiased;background:#070911}
-
 .bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .bg::before{content:'';position:absolute;inset:0;
   background:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(99,179,237,0.08) 0%,transparent 70%),
@@ -36,7 +29,6 @@ html,body{min-height:100%;font-family:'Mulish',sans-serif;color:var(--text);-web
 @keyframes tw{0%{opacity:.15}100%{opacity:.75}}
 
 .wrap{position:relative;z-index:1;width:100%;max-width:460px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
-
 .hd{padding:18px 22px 14px;background:rgba(7,9,17,0.88);backdrop-filter:blur(16px);position:sticky;top:0;z-index:10;border-bottom:1px solid var(--border)}
 .hd-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
 .logo{font-family:'Unbounded',sans-serif;font-size:10px;font-weight:700;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase}
@@ -44,7 +36,6 @@ html,body{min-height:100%;font-family:'Mulish',sans-serif;color:var(--text);-web
 .pt{height:3px;background:rgba(255,255,255,0.06);border-radius:2px;position:relative;overflow:visible}
 .pf{height:100%;background:linear-gradient(90deg,var(--cyan),var(--violet));border-radius:2px;transition:width .5s cubic-bezier(.4,0,.2,1);position:relative}
 .pf::after{content:'';position:absolute;right:-3px;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:50%;background:var(--violetb);box-shadow:0 0 10px var(--violet)}
-
 .ct{flex:1;padding:26px 22px 36px;display:flex;flex-direction:column}
 .sc{display:none;flex-direction:column;flex:1;animation:fu .3s ease}
 .sc.on{display:flex}
@@ -60,7 +51,7 @@ html,body{min-height:100%;font-family:'Mulish',sans-serif;color:var(--text);-web
 .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);flex-shrink:0}
 .imeta{font-size:12px;color:var(--dim);margin-bottom:24px;font-weight:600}
 
-/* QUESTION */
+/* QUESTION — choice */
 .qtag{font-family:'Unbounded',sans-serif;font-size:10px;font-weight:700;color:var(--violet);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
 .qtitle{font-family:'Unbounded',sans-serif;font-size:17px;font-weight:700;line-height:1.35;color:#fff;margin-bottom:7px}
 .qhint{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.5}
@@ -71,6 +62,39 @@ html,body{min-height:100%;font-family:'Mulish',sans-serif;color:var(--text);-web
 .opt:hover{background:var(--surface-h);border-color:rgba(255,255,255,0.15)}
 .opt.sel{border-color:var(--ba);background:rgba(99,179,237,0.08);color:var(--cyanb)}
 .opt.sel::after{content:'✓';margin-left:auto;font-size:13px;font-weight:700;color:var(--cyan)}
+
+/* NUMBER INPUT SCREEN */
+.num-group{display:flex;flex-direction:column;gap:16px;margin-bottom:8px}
+.num-item{}
+.nlabel{font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.nlabel span{color:var(--muted);font-weight:500;text-transform:none;letter-spacing:0;font-size:11px}
+.ni-wrap{position:relative;display:flex;align-items:center}
+.ni{width:100%;padding:13px 15px;border:1px solid var(--border);border-radius:var(--rs);font-size:16px;font-family:'Mulish',sans-serif;font-weight:600;color:var(--text);background:rgba(255,255,255,0.04);transition:border-color .18s;-webkit-appearance:none;-moz-appearance:textfield}
+.ni::-webkit-inner-spin-button,.ni::-webkit-outer-spin-button{-webkit-appearance:none}
+.ni:focus{outline:none;border-color:rgba(99,179,237,0.5);background:rgba(99,179,237,0.04)}
+.ni::placeholder{color:var(--dim);font-weight:400}
+.ni-hint{font-size:12px;color:var(--dim);margin-top:5px;line-height:1.4}
+
+/* ENGAGEMENT PREVIEW */
+.eng-preview{background:rgba(183,148,244,0.08);border:1px solid rgba(183,148,244,0.2);border-radius:var(--r);padding:14px 16px;margin-top:16px;display:none}
+.eng-label{font-size:11px;font-weight:700;color:var(--violet);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.eng-val{font-family:'Unbounded',sans-serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:4px}
+.eng-desc{font-size:12px;color:var(--muted);line-height:1.4}
+
+/* FORM */
+.form-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px}
+.ftag{font-family:'Unbounded',sans-serif;font-size:10px;font-weight:700;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.ftitle{font-family:'Unbounded',sans-serif;font-size:16px;font-weight:700;color:#fff;line-height:1.35;margin-bottom:6px}
+.fsub{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:18px}
+.fields{display:flex;flex-direction:column;gap:12px}
+.fi-wrap{}
+.flabel{font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+.fi{width:100%;padding:13px 15px;border:1px solid var(--border);border-radius:var(--rs);font-size:14px;font-family:'Mulish',sans-serif;color:var(--text);background:rgba(255,255,255,0.04);transition:border-color .18s,background .18s;-webkit-appearance:none}
+.fi:focus{outline:none;border-color:rgba(99,179,237,0.5);background:rgba(99,179,237,0.04)}
+.fi::placeholder{color:var(--dim)}
+.fi.err-input{border-color:rgba(252,129,129,0.6)!important}
+.ferr{font-size:12px;color:var(--red);margin-top:4px;display:none;line-height:1.4}
+.ferr.show{display:block}
 
 /* RESULT */
 .rhero{background:linear-gradient(135deg,rgba(99,179,237,0.08),rgba(183,148,244,0.08));border:1px solid rgba(99,179,237,0.14);border-radius:var(--r);padding:20px;margin-bottom:16px}
@@ -91,27 +115,19 @@ html,body{min-height:100%;font-family:'Mulish',sans-serif;color:var(--text);-web
 .ltext strong{color:var(--red);font-weight:700}
 
 .sysbox{border-radius:var(--r);padding:16px 18px;margin-bottom:16px;background:rgba(104,211,145,0.06);border:1px solid rgba(104,211,145,0.18)}
-.systitle{font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;color:var(--green);margin-bottom:7px;text-transform:uppercase;letter-spacing:.05em}
+.systitle{font-family:'Unbounded',sans-serif;font-size:11px;font-weight:700;color:var(--green);margin-bottom:7px;text-transform:uppercase;letter-spacing:.05em}
 .systext{font-size:13px;color:#c6f6d5;line-height:1.6}
 
-.ctabox{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;margin-bottom:16px}
-.ctatitle{font-family:'Unbounded',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:6px}
-.ctasub{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:18px}
+.case-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:16px;text-decoration:none;display:block;transition:border-color .18s,background .18s;cursor:pointer}
+.case-box:hover{border-color:rgba(99,179,237,0.3);background:rgba(99,179,237,0.05)}
+.case-tag{font-size:11px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.case-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px;line-height:1.35}
+.case-sub{font-size:12px;color:var(--muted)}
+.case-arrow{float:right;color:var(--cyan);font-size:16px;margin-top:-20px}
 
-.flabel{font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
-.fields{display:flex;flex-direction:column;gap:10px;margin-bottom:6px}
-.fi{width:100%;padding:13px 15px;border:1px solid var(--border);border-radius:var(--rs);font-size:14px;font-family:'Mulish',sans-serif;color:var(--text);background:rgba(255,255,255,0.04);transition:border-color .18s;-webkit-appearance:none}
-.fi:focus{outline:none;border-color:rgba(99,179,237,0.5);background:rgba(99,179,237,0.04)}
-.fi::placeholder{color:var(--dim)}
-.errmsg{font-size:12px;color:var(--red);margin-top:8px;display:none}
-
-/* SUCCESS */
-.okwrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px 0}
-.okc{width:76px;height:76px;border-radius:50%;border:1.5px solid rgba(104,211,145,0.4);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 20px;background:rgba(104,211,145,0.07);box-shadow:0 0 30px rgba(104,211,145,0.1)}
-.oktitle{font-family:'Unbounded',sans-serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:10px;line-height:1.3}
-.oktext{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:28px}
-.tgbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px;background:#229ED9;color:#fff;border:none;border-radius:var(--rs);font-size:15px;font-weight:700;font-family:'Mulish',sans-serif;cursor:pointer;text-decoration:none;transition:background .18s}
-.tgbtn:active{background:#1a7fb0}
+.razbor-box{background:linear-gradient(135deg,rgba(183,148,244,0.1),rgba(99,179,237,0.08));border:1px solid rgba(183,148,244,0.25);border-radius:var(--r);padding:20px;margin-bottom:8px;text-align:center}
+.razbor-title{font-family:'Unbounded',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:6px;line-height:1.3}
+.razbor-sub{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:16px}
 
 /* BUTTONS */
 .btnm{width:100%;padding:15px;background:linear-gradient(135deg,var(--cyan),var(--violet));color:#070911;border:none;border-radius:var(--rs);font-size:15px;font-weight:700;font-family:'Mulish',sans-serif;cursor:pointer;transition:opacity .18s,transform .1s;margin-top:20px;letter-spacing:.01em}
@@ -119,6 +135,16 @@ html,body{min-height:100%;font-family:'Mulish',sans-serif;color:var(--text);-web
 .btnm:disabled{opacity:.4;cursor:default}
 .btnb{background:none;border:none;color:var(--dim);font-size:13px;font-family:'Mulish',sans-serif;cursor:pointer;padding:0;margin-top:12px;text-align:center;width:100%;font-weight:600;transition:color .15s}
 .btnb:hover{color:var(--muted)}
+.btn-tg{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px;background:#229ED9;color:#fff;border:none;border-radius:var(--rs);font-size:15px;font-weight:700;font-family:'Mulish',sans-serif;cursor:pointer;text-decoration:none;transition:background .18s}
+.btn-tg:active{background:#1a7fb0}
+
+/* ENG LEVELS */
+.eng-bar{display:flex;gap:3px;margin-top:8px}
+.eb{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,0.1)}
+.eb.on-low{background:var(--red)}
+.eb.on-mid{background:var(--orange)}
+.eb.on-good{background:var(--cyan)}
+.eb.on-high{background:var(--green)}
 
 @media(min-width:480px){body{padding:24px 16px}.wrap{min-height:auto;border-radius:20px;overflow:hidden;border:1px solid var(--border)}}
 </style>
@@ -126,7 +152,6 @@ html,body{min-height:100%;font-family:'Mulish',sans-serif;color:var(--text);-web
 <body>
 <div class="bg"><div id="stars"></div></div>
 <div class="wrap">
-
   <div class="hd">
     <div class="hd-row">
       <div class="logo">Блог · Потенциал</div>
@@ -134,35 +159,107 @@ html,body{min-height:100%;font-family:'Mulish',sans-serif;color:var(--text);-web
     </div>
     <div class="pt"><div class="pf" id="pf" style="width:0%"></div></div>
   </div>
-
   <div class="ct">
 
     <!-- INTRO -->
-    <div class="sc on" id="s0">
+    <div class="sc on" id="s-intro">
       <div class="badge">⚡ Бесплатный тест</div>
       <h1 class="ititle">Сколько заявок вы теряете из <span class="gr">вашего блога?</span></h1>
-      <p class="idesc">Пройдите 8 вопросов — узнайте реальный потенциал блога и что мешает охватам превращаться в заявки</p>
+      <p class="idesc">Ответьте на 9 вопросов — я сам посчитаю вовлечённость и покажу реальный потенциал вашего блога</p>
       <div class="ipts">
         <div class="ipt"><div class="dot"></div><span>Сколько заявок вы можете получать</span></div>
         <div class="ipt"><div class="dot"></div><span>Почему аудитория читает, но не пишет</span></div>
         <div class="ipt"><div class="dot"></div><span>Персональный разбор под вашу нишу</span></div>
       </div>
-      <div class="imeta">⏱ 2 минуты · 8 вопросов · бесплатно</div>
-      <button class="btnm" onclick="startQuiz()">Узнать потенциал →</button>
+      <div class="imeta">⏱ 2 минуты · 9 шагов · бесплатно</div>
+      <button class="btnm" onclick="goTo('s-q',0)">Узнать потенциал →</button>
     </div>
 
-    <!-- QUESTION -->
-    <div class="sc" id="s1">
-      <div class="qtag" id="qtag">Вопрос 1 из 8</div>
+    <!-- CHOICE QUESTIONS -->
+    <div class="sc" id="s-q">
+      <div class="qtag" id="qtag"></div>
       <div class="qtitle" id="qtitle"></div>
       <div class="qhint" id="qhint"></div>
       <div class="opts" id="opts"></div>
-      <button class="btnm" id="btnN" onclick="next()" disabled>Далее →</button>
-      <button class="btnb" onclick="back()">← Назад</button>
+      <button class="btnm" id="btnNq" onclick="nextQ()" disabled>Далее →</button>
+      <button class="btnb" onclick="backQ()">← Назад</button>
     </div>
 
-    <!-- RESULT -->
-    <div class="sc" id="s2">
+    <!-- NUMBERS SCREEN -->
+    <div class="sc" id="s-nums">
+      <div class="qtag">Шаг 5 из 9</div>
+      <div class="qtitle">Статистика вашего блога</div>
+      <div class="qhint">Введите средние показатели — я сам посчитаю уровень вовлечённости</div>
+      <div class="num-group">
+        <div class="num-item">
+          <div class="nlabel">Охват поста <span>(просмотров за 24ч)</span></div>
+          <input class="ni" id="n-post" type="number" min="0" placeholder="например: 1200" oninput="updateEng()">
+          <div class="ni-hint">Среднее количество просмотров одного поста</div>
+        </div>
+        <div class="num-item">
+          <div class="nlabel">Охват сторис <span>(просмотров за 24ч)</span></div>
+          <input class="ni" id="n-story" type="number" min="0" placeholder="например: 800" oninput="updateEng()">
+          <div class="ni-hint">Среднее количество просмотров одной сторис</div>
+        </div>
+        <div class="num-item">
+          <div class="nlabel">Лайков на пост <span>(среднее)</span></div>
+          <input class="ni" id="n-likes" type="number" min="0" placeholder="например: 45" oninput="updateEng()">
+        </div>
+        <div class="num-item">
+          <div class="nlabel">Комментариев на пост <span>(среднее)</span></div>
+          <input class="ni" id="n-comments" type="number" min="0" placeholder="например: 12" oninput="updateEng()">
+        </div>
+      </div>
+      <div class="eng-preview" id="eng-preview">
+        <div class="eng-label">Ваш уровень вовлечённости</div>
+        <div class="eng-val" id="eng-pct">0%</div>
+        <div class="eng-bar" id="eng-bar">
+          <div class="eb" id="eb1"></div><div class="eb" id="eb2"></div>
+          <div class="eb" id="eb3"></div><div class="eb" id="eb4"></div>
+          <div class="eb" id="eb5"></div>
+        </div>
+        <div class="eng-desc" id="eng-desc" style="margin-top:8px"></div>
+      </div>
+      <button class="btnm" id="btnNums" onclick="nextNums()" disabled style="margin-top:20px">Далее →</button>
+      <button class="btnb" onclick="backQ()">← Назад</button>
+    </div>
+
+    <!-- FORM SCREEN -->
+    <div class="sc" id="s-form">
+      <div class="form-block">
+        <div class="ftag">Почти готово</div>
+        <div class="ftitle">Введите контакты — и я покажу результат</div>
+        <div class="fsub">Пришлю персональный разбор вашего блога под вашу нишу</div>
+        <div class="fields">
+          <div class="fi-wrap">
+            <div class="flabel">Имя</div>
+            <input class="fi" id="fn" type="text" placeholder="Как вас зовут?" autocomplete="name">
+            <div class="ferr" id="err-fn">Введите ваше имя</div>
+          </div>
+          <div class="fi-wrap">
+            <div class="flabel">Telegram</div>
+            <input class="fi" id="ft" type="text" placeholder="@username" autocomplete="off" oninput="normTg(this)">
+            <div class="ferr" id="err-ft">Введите @username (минимум 3 символа после @)</div>
+          </div>
+          <div class="fi-wrap">
+            <div class="flabel">Телефон</div>
+            <input class="fi" id="fp" type="tel" placeholder="+7 900 000-00-00" autocomplete="tel" oninput="normPhone(this)">
+            <div class="ferr" id="err-fp">Введите корректный номер телефона (10–12 цифр)</div>
+          </div>
+          <div class="fi-wrap">
+            <div class="flabel">Email</div>
+            <input class="fi" id="fe" type="email" placeholder="your@email.com" autocomplete="email">
+            <div class="ferr" id="err-fe">Введите корректный email адрес</div>
+          </div>
+        </div>
+        <div class="ferr" id="err-gen" style="margin-top:10px;font-size:13px"></div>
+        <button class="btnm" id="btnForm" onclick="submitForm()" style="margin-top:20px">Показать результат →</button>
+      </div>
+      <button class="btnb" onclick="goBack('s-nums')">← Назад</button>
+    </div>
+
+    <!-- RESULT SCREEN -->
+    <div class="sc" id="s-result">
       <div class="rhero">
         <div class="rtag">Ваш результат</div>
         <div class="rheadline" id="rh"></div>
@@ -182,29 +279,17 @@ html,body{min-height:100%;font-family:'Mulish',sans-serif;color:var(--text);-web
         <div class="systitle">Что я делаю</div>
         <div class="systext">Я внедряю систему, которая превращает охваты в поток заявок: контент → комментарии → Telegram → бот → продажа. Это не про больше постов — это про архитектуру монетизации блога.</div>
       </div>
-      <div class="ctabox">
-        <div class="ctatitle">Разобрать мой блог</div>
-        <div class="ctasub">Оставьте контакты — покажу точки роста конкретно под вашу нишу и стратегию внедрения</div>
-        <div class="fields">
-          <div><div class="flabel">Имя</div><input class="fi" id="fn" type="text" placeholder="Как вас зовут?"></div>
-          <div><div class="flabel">Telegram</div><input class="fi" id="ft" type="text" placeholder="@username"></div>
-          <div><div class="flabel">Телефон</div><input class="fi" id="fp" type="tel" placeholder="+7 900 000-00-00"></div>
-          <div><div class="flabel">Email</div><input class="fi" id="fe" type="email" placeholder="your@email.com"></div>
-        </div>
-        <div class="errmsg" id="err">Заполните все поля, пожалуйста</div>
-        <button class="btnm" id="btnS" onclick="submit()" style="margin-top:16px">Разобрать мой блог →</button>
-      </div>
-    </div>
-
-    <!-- SUCCESS -->
-    <div class="sc" id="s3">
-      <div class="okwrap">
-        <div class="okc">✓</div>
-        <div class="oktitle">Заявка принята!</div>
-        <p class="oktext">Свяжусь с вами в течение 24 часов и пришлю персональный разбор под вашу нишу</p>
-        <a href="https://t.me/vikashet" target="_blank" class="tgbtn">
+      <a href="https://topkontent.vercel.app/articles/carousel-guide.html" target="_blank" class="case-box">
+        <div class="case-tag">Кейс</div>
+        <div class="case-title">Как я выстроил систему заявок из блога →</div>
+        <div class="case-sub">Читать разбор на сайте</div>
+      </a>
+      <div class="razbor-box">
+        <div class="razbor-title">Хотите разобрать ваш блог?</div>
+        <div class="razbor-sub">Покажу точки роста конкретно под вашу нишу и стратегию внедрения системы заявок</div>
+        <a href="https://t.me/+-WBNJn7Y0NdkYjRi" target="_blank" class="btn-tg">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-          Написать @vikashet
+          Перейти в Telegram-канал
         </a>
       </div>
     </div>
@@ -215,6 +300,7 @@ html,body{min-height:100%;font-family:'Mulish',sans-serif;color:var(--text);-web
 <script>
 const BOT='8778527672:AAGpOi7qh0jS9GpJIOsZeOZrV2lcH566D1o', CID='327487258';
 
+// ── QUESTIONS ──
 const QS=[
   {title:'Какая у вас ниша?',hint:'Выберите направление, наиболее близкое к вашей теме',opts:[
     {i:'💼',t:'Бизнес / предпринимательство'},{i:'💆',t:'Психология / коучинг / саморазвитие'},
@@ -228,36 +314,27 @@ const QS=[
   {title:'Средний чек вашего продукта?',hint:'Укажите стоимость основного предложения',opts:[
     {i:'💵',t:'До 5 000 ₽'},{i:'💴',t:'5 000 — 15 000 ₽'},{i:'💶',t:'15 000 — 50 000 ₽'},
     {i:'💷',t:'50 000 — 150 000 ₽'},{i:'💰',t:'Выше 150 000 ₽'}]},
-  {title:'Сколько подписчиков в блоге?',hint:'Суммарно по основной площадке',opts:[
+  {title:'Сколько подписчиков в блоге?',hint:'По основной площадке, где ведёте блог',opts:[
     {i:'🌱',t:'5 000 — 10 000'},{i:'📈',t:'10 000 — 30 000'},{i:'🚀',t:'30 000 — 100 000'},
     {i:'⭐',t:'100 000 — 500 000'},{i:'🔥',t:'Более 500 000'}]},
-  {title:'Охват одного поста за 24 часа?',hint:'Примерный % от числа подписчиков',opts:[
-    {i:'😔',t:'Менее 3% — очень низкий'},{i:'😐',t:'3–8% — ниже среднего'},
-    {i:'🙂',t:'8–15% — средний'},{i:'😊',t:'15–25% — хороший'},{i:'🤩',t:'Более 25% — высокий'}]},
-  {title:'Уровень вовлечённости в постах?',hint:'Комментарии, реакции, ответы на сторис',opts:[
-    {i:'❄️',t:'Низкий — редкие реакции'},{i:'🌤',t:'Средний — есть активность'},
-    {i:'☀️',t:'Высокий — регулярные комментарии'},{i:'🔥',t:'Очень высокий — аудитория живая'}]},
-  {title:'Покупали рекламу или продвижение?',hint:'Таргет, блогеры, посевы и т.д.',opts:[
-    {i:'🚫',t:'Нет, не пробовал(а)'},{i:'🧪',t:'Пробовал(а), результат слабый'},
-    {i:'✅',t:'Да, заявки были'},{i:'🔄',t:'Регулярно запускаю'}]},
-  {title:'Основной источник трафика сейчас?',hint:'Откуда приходят ваши подписчики',opts:[
-    {i:'📸',t:'Instagram / Reels'},{i:'✈️',t:'Telegram-канал'},{i:'🎵',t:'TikTok'},
-    {i:'▶️',t:'YouTube'},{i:'🌐',t:'Несколько платформ'},{i:'🤷',t:'Органика, не знаю точно'}]},
 ];
 
-let cur=0,ans=[],sel=null;
+let cur=0, ans=[], sel=null;
 
-// stars
+// ── STARS ──
 (()=>{const c=document.getElementById('stars');for(let i=0;i<80;i++){const s=document.createElement('span');const sz=Math.random()*1.5+.5;s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${sz}px;height:${sz}px;--d:${2+Math.random()*4}s;--dl:${Math.random()*4}s;opacity:${.15+Math.random()*.6}`;c.appendChild(s);}})();
 
-function show(id){document.querySelectorAll('.sc').forEach(s=>s.classList.remove('on'));document.getElementById(id).classList.add('on')}
+// ── NAVIGATION ──
+function show(id){document.querySelectorAll('.sc').forEach(s=>s.classList.remove('on'));document.getElementById(id).classList.add('on');window.scrollTo(0,0)}
 function prog(pct,lbl){document.getElementById('pf').style.width=pct+'%';document.getElementById('slbl').textContent=lbl}
 
-function startQuiz(){cur=0;ans=[];sel=null;show('s1');render();prog(5,'1 / 8')}
+function goTo(screen,step){show(screen);if(step!==undefined){cur=step;renderQ();}prog(Math.round((cur+1)/9*85),(cur+1)+' / 9')}
+function goBack(screen){show(screen)}
 
-function render(){
+// ── CHOICE QUESTIONS ──
+function renderQ(){
   const q=QS[cur];
-  document.getElementById('qtag').textContent='Вопрос '+(cur+1)+' из '+QS.length;
+  document.getElementById('qtag').textContent='Шаг '+(cur+1)+' из 9';
   document.getElementById('qtitle').textContent=q.title;
   document.getElementById('qhint').textContent=q.hint;
   sel=ans[cur]!==undefined?ans[cur]:null;
@@ -266,50 +343,176 @@ function render(){
     const b=document.createElement('button');
     b.className='opt'+(sel===i?' sel':'');
     b.innerHTML=`<span class="oic">${o.i}</span><span>${o.t}</span>`;
-    b.onclick=()=>pick(i);w.appendChild(b);
+    b.onclick=()=>pick(i);
+    w.appendChild(b);
   });
-  const bn=document.getElementById('btnN');
+  const bn=document.getElementById('btnNq');
   bn.disabled=sel===null;
-  bn.textContent=cur===QS.length-1?'Посмотреть результат →':'Далее →';
+  bn.textContent='Далее →';
 }
 
 function pick(i){
   sel=i;ans[cur]=i;
   document.querySelectorAll('.opt').forEach((el,idx)=>el.classList.toggle('sel',idx===i));
-  document.getElementById('btnN').disabled=false;
+  document.getElementById('btnNq').disabled=false;
 }
 
-function next(){
+function nextQ(){
   if(sel===null)return;
-  if(cur<QS.length-1){cur++;render();prog(Math.round((cur+1)/QS.length*88),(cur+1)+' / '+QS.length);}
-  else showResult();
+  if(cur<QS.length-1){cur++;renderQ();prog(Math.round((cur+1)/9*85),(cur+1)+' / 9');}
+  else{show('s-nums');prog(Math.round(5/9*85),'5 / 9');}
 }
 
-function back(){
-  if(cur>0){cur--;render();prog(Math.round((cur+1)/QS.length*88),(cur+1)+' / '+QS.length);}
-  else{show('s0');prog(0,'');}
+function backQ(){
+  if(cur>0){cur--;renderQ();prog(Math.round((cur+1)/9*85),(cur+1)+' / 9');}
+  else{show('s-intro');prog(0,'');}
 }
 
-function calc(){
+// ── ENGAGEMENT CALC ──
+function getNum(id){return parseInt(document.getElementById(id).value)||0}
+
+function updateEng(){
+  const post=getNum('n-post'), story=getNum('n-story');
+  const likes=getNum('n-likes'), comments=getNum('n-comments');
+  const preview=document.getElementById('eng-preview');
+  const btnN=document.getElementById('btnNums');
+
+  if(post===0){preview.style.display='none';btnN.disabled=true;return;}
+
+  // Engagement Rate = (likes + comments*2) / reach_post * 100
+  const er = post>0 ? ((likes + comments*2)/post*100) : 0;
+  const erRound = Math.round(er*10)/10;
+
+  preview.style.display='block';
+  document.getElementById('eng-pct').textContent=erRound+'%';
+
+  // bar
+  const bars=['eb1','eb2','eb3','eb4','eb5'];
+  bars.forEach(id=>document.getElementById(id).className='eb');
+  let level=0, cls='', desc='';
+  if(er<1){level=1;cls='on-low';desc='Очень низкий — аудитория почти не реагирует. Конверсия в заявки 1–2%.'}
+  else if(er<3){level=2;cls='on-low';desc='Низкий — небольшая активность. Конверсия в заявки около 2–3%.'}
+  else if(er<6){level=3;cls='on-mid';desc='Средний — есть активность, но нестабильно. Конверсия 3–5%.'}
+  else if(er<10){level=4;cls='on-good';desc='Хороший — аудитория живая. Конверсия 5–8%.'}
+  else{level=5;cls='on-high';desc='Высокий — отличная база для заявок. Конверсия 8–15%.'}
+
+  for(let i=0;i<level;i++) document.getElementById(bars[i]).className='eb '+cls;
+  document.getElementById('eng-desc').textContent=desc;
+
+  // story охват тоже сохраняем
+  window._eng={er:erRound,level,post,story,likes,comments};
+  btnN.disabled=false;
+}
+
+function nextNums(){
+  const post=getNum('n-post');
+  if(!post){return;}
+  show('s-form');prog(Math.round(6/9*85),'6 / 9');
+}
+
+// ── VALIDATION ──
+function normTg(el){
+  let v=el.value.trim();
+  if(v&&!v.startsWith('@'))el.value='@'+v;
+}
+
+function normPhone(el){
+  let v=el.value.replace(/[^\d+]/g,'');
+  el.value=v;
+}
+
+function validEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e)}
+function validPhone(p){const d=p.replace(/\D/g,'');return d.length>=10&&d.length<=12}
+function validTg(t){return t.startsWith('@')&&t.length>=4}
+function validName(n){return n.trim().length>=2}
+
+function showErr(id,errId,show){
+  const el=document.getElementById(id);
+  const er=document.getElementById(errId);
+  if(show){el.classList.add('err-input');er.classList.add('show');}
+  else{el.classList.remove('err-input');er.classList.remove('show');}
+  return!show;
+}
+
+// ── FORM SUBMIT ──
+async function submitForm(){
+  const name=document.getElementById('fn').value.trim();
+  const tg=document.getElementById('ft').value.trim();
+  const phone=document.getElementById('fp').value.trim();
+  const email=document.getElementById('fe').value.trim();
+
+  let ok=true;
+  ok=showErr('fn','err-fn',!validName(name))&&ok;
+  ok=showErr('ft','err-ft',!validTg(tg))&&ok;
+  ok=showErr('fp','err-fp',!validPhone(phone))&&ok;
+  ok=showErr('fe','err-fe',!validEmail(email))&&ok;
+  if(!ok)return;
+
+  const btn=document.getElementById('btnForm');
+  btn.disabled=true;btn.textContent='Отправляем...';
+
+  // calc
   const prices=[2500,10000,32500,100000,200000];
   const subsV=[7500,20000,65000,300000,750000];
-  const reachP=[0.02,0.055,0.115,0.2,0.3];
-  const convR=[0.01,0.03,0.08,0.13];
   const price=prices[ans[2]]||15000;
   const subs=subsV[ans[3]]||15000;
-  const rp=reachP[ans[4]]||0.05;
-  const conv=convR[ans[5]]||0.02;
-  const reach=Math.round(subs*rp);
-  const lMax=Math.round(reach*conv*12);
+  const eng=window._eng||{er:0,level:1,post:0,story:0,likes:0,comments:0};
+
+  // conv rate by engagement level
+  const convRates=[0.01,0.02,0.04,0.06,0.12];
+  const conv=convRates[Math.max(0,eng.level-1)];
+  const reachForCalc=eng.post||subs*0.05;
+  const lMax=Math.round(reachForCalc*conv*12);
   const lNow=Math.round(lMax*0.06);
-  const lLost=lMax-lNow;
+  const lLost=Math.max(0,lMax-lNow);
   const sp=0.2;
   const rMax=Math.round(lMax*sp*price);
-  const rNow=Math.round(lNow*sp*price);
-  const rLost=rMax-rNow;
-  return{lMax,lNow,lLost,rMax,rNow,rLost,engIdx:ans[5]||0};
+  const rLost=Math.round(lLost*sp*price);
+
+  window._res={lMax,lNow,lLost,rMax,rLost,eng,price};
+
+  // telegram message
+  const g=(q)=>QS[q]?.opts[ans[q]]?.t||'—';
+  const msg=
+`🔥 *Новая заявка с квиза*
+
+👤 *Имя:* ${name}
+📱 *Telegram:* ${tg}
+📞 *Телефон:* ${phone}
+📧 *Email:* ${email}
+
+─────────────────
+📊 *Данные блога:*
+🎯 Ниша: ${g(0)}
+💼 Продукт: ${g(1)}
+💰 Чек: ${g(2)}
+👥 Подписчики: ${g(3)}
+
+📈 *Статистика:*
+👁 Охват поста: ${eng.post}
+📖 Охват сторис: ${eng.story}
+❤️ Лайков: ${eng.likes}
+💬 Комментариев: ${eng.comments}
+🔥 Вовлечённость (ER): *${eng.er}%* (уровень ${eng.level}/5)
+
+─────────────────
+📈 *Потенциал:*
+❌ Теряет заявок/мес: *${lLost}*
+✅ Мог бы получать: *${lMax}*
+💸 Теряет выручки: *${fmoney(rLost)}*
+🚀 Потенциал выручки: *${fmoney(rMax)}*`;
+
+  try{
+    await fetch(`https://api.telegram.org/bot${BOT}/sendMessage`,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({chat_id:CID,text:msg,parse_mode:'Markdown'})
+    });
+  }catch(e){}
+
+  showResult();
 }
 
+// ── RESULT ──
 function fmoney(n){
   if(n>=1000000)return(n/1e6).toFixed(1)+' млн ₽';
   if(n>=1000)return Math.round(n/1000)+' тыс ₽';
@@ -317,19 +520,20 @@ function fmoney(n){
 }
 
 function showResult(){
-  const r=calc();
+  const r=window._res;
   const lo=Math.max(1,Math.round(r.lMax*.7));
 
   document.getElementById('rh').innerHTML=
     `При текущих охватах вы могли бы получать <span class="hi">${lo}–${r.lMax} заявок в месяц.</span>`;
 
   const bodies=[
-    'Сейчас вовлечённость низкая — конверсия 1–3%. Аудитория просто читает контент, не делая следующего шага. Система монетизации не настроена.',
-    'Средняя вовлечённость — люди реагируют, но нет системы, которая конвертирует их в заявки. Большая часть охватов уходит в никуда.',
-    'Хорошая вовлечённость — аудитория живая. Но без системы заявок даже активная аудитория просто читает и не покупает.',
-    'Высокая вовлечённость — большой актив. При правильной системе конверсия 10–15% реальна уже в первый месяц.',
+    'Сейчас вовлечённость очень низкая. Аудитория просто читает контент — нет системы, которая ведёт человека к заявке.',
+    'Низкая вовлечённость — конверсия 1–3%. Аудитория читает, но не делает следующего шага. Система монетизации не настроена.',
+    'Средняя вовлечённость — люди реагируют, но нет воронки, которая конвертирует их в заявки.',
+    'Хорошая вовлечённость — аудитория живая. Но без системы заявок активная аудитория просто читает и не покупает.',
+    'Высокая вовлечённость — большой актив. При правильной системе конверсия 8–15% реальна уже в первый месяц.',
   ];
-  document.getElementById('rb').textContent=bodies[r.engIdx];
+  document.getElementById('rb').textContent=bodies[Math.max(0,r.eng.level-1)];
 
   document.getElementById('mL').textContent=r.lLost;
   document.getElementById('mG').textContent=r.lMax;
@@ -337,34 +541,15 @@ function showResult(){
   document.getElementById('mRG').textContent=fmoney(r.rMax);
 
   const losts=[
-    `Система монетизации не настроена — поэтому <strong>${r.lLost} заявок в месяц</strong> просто теряются. Аудитория читает контент, но не знает, как к вам обратиться.`,
-    `Нет чёткого пути от контента к заявке. Из-за этого <strong>${r.lLost} потенциальных клиентов</strong> каждый месяц уходят, ничего не купив.`,
-    `Даже при хорошей вовлечённости — без воронки <strong>${r.lLost} заявок в месяц</strong> остаются на столе. Люди готовы, но не знают следующего шага.`,
+    `Система монетизации не настроена — <strong>${r.lLost} заявок в месяц</strong> просто теряются. Аудитория читает контент, но не знает, как к вам обратиться.`,
+    `Нет чёткого пути от контента к заявке. <strong>${r.lLost} потенциальных клиентов</strong> каждый месяц уходят, ничего не купив.`,
+    `Без воронки <strong>${r.lLost} заявок в месяц</strong> остаются на столе. Люди готовы, но не знают следующего шага.`,
+    `Даже при хорошей вовлечённости вы теряете <strong>${r.lLost} заявок в месяц</strong> из-за отсутствия системы.`,
     `С вашей аудиторией вы теряете <strong>${r.lLost} горячих заявок каждый месяц</strong> только из-за отсутствия системы.`,
   ];
-  document.getElementById('lt').innerHTML=losts[r.engIdx];
+  document.getElementById('lt').innerHTML=losts[Math.max(0,r.eng.level-1)];
 
-  show('s2');prog(94,'Результат');
-  window.scrollTo(0,0);
-}
-
-async function submit(){
-  const name=document.getElementById('fn').value.trim();
-  const tg=document.getElementById('ft').value.trim();
-  const phone=document.getElementById('fp').value.trim();
-  const email=document.getElementById('fe').value.trim();
-  const err=document.getElementById('err');
-  if(!name||!tg||!phone||!email){err.style.display='block';return;}
-  err.style.display='none';
-  const btn=document.getElementById('btnS');
-  btn.disabled=true;btn.textContent='Отправляем...';
-  const r=calc();
-  const g=(q)=>QS[q].opts[ans[q]]?.t||'—';
-  const msg=`🔥 *Новая заявка с квиза*\n\n👤 *Имя:* ${name}\n📱 *Telegram:* ${tg}\n📞 *Телефон:* ${phone}\n📧 *Email:* ${email}\n\n─────────────────\n📊 *Данные блога:*\n🎯 Ниша: ${g(0)}\n💼 Продукт: ${g(1)}\n💰 Чек: ${g(2)}\n👥 Подписчики: ${g(3)}\n👁 Охват: ${g(4)}\n💬 Вовлечённость: ${g(5)}\n📣 Реклама: ${g(6)}\n🌐 Трафик: ${g(7)}\n\n─────────────────\n📈 *Расчёт:*\n❌ Теряет заявок/мес: *${r.lLost}*\n✅ Потенциал заявок: *${r.lMax}*\n💸 Теряет выручки: *${fmoney(r.rLost)}*\n🚀 Потенциал выручки: *${fmoney(r.rMax)}*`;
-  try{
-    await fetch(`https://api.telegram.org/bot${BOT}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:CID,text:msg,parse_mode:'Markdown'})});
-  }catch(e){}
-  prog(100,'Готово!');show('s3');window.scrollTo(0,0);
+  show('s-result');prog(100,'Готово!');
 }
 </script>
 </body>
