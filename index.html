@@ -294,10 +294,10 @@ html,body{min-height:100%;font-family:'Mulish',sans-serif;color:var(--text);-web
         <div class="rbody" id="rb"></div>
       </div>
       <div class="mrow">
-        <div class="mc"><span class="mv r" id="mL">—</span><div class="ml">теряете заявок/мес</div></div>
-        <div class="mc"><span class="mv g" id="mG">—</span><div class="ml">можете получать</div></div>
-        <div class="mc"><span class="mv o" id="mRL">—</span><div class="ml">теряете выручки</div></div>
-        <div class="mc"><span class="mv c" id="mRG">—</span><div class="ml">потенциал в месяц</div></div>
+        <div class="mc"><span class="mv r" id="mL">—</span><div class="ml">заявок сейчас за запуск</div></div>
+        <div class="mc"><span class="mv g" id="mG">—</span><div class="ml">заявок с системой за запуск</div></div>
+        <div class="mc"><span class="mv o" id="mRL">—</span><div class="ml">выручка сейчас за запуск</div></div>
+        <div class="mc"><span class="mv c" id="mRG">—</span><div class="ml">потенциал за запуск</div></div>
       </div>
       <div class="lbox">
         <div class="lic">⚠️</div>
@@ -416,11 +416,11 @@ function updateEng(){
   const bars=['eb1','eb2','eb3','eb4','eb5'];
   bars.forEach(id=>document.getElementById(id).className='eb');
   let level=0, cls='', desc='';
-  if(er<1){level=1;cls='on-low';desc='Очень низкий — аудитория почти не реагирует. Конверсия в заявки 1–2%.'}
-  else if(er<3){level=2;cls='on-low';desc='Низкий — небольшая активность. Конверсия в заявки около 2–3%.'}
-  else if(er<6){level=3;cls='on-mid';desc='Средний — есть активность, но нестабильно. Конверсия 3–5%.'}
-  else if(er<10){level=4;cls='on-good';desc='Хороший — аудитория живая. Конверсия 5–8%.'}
-  else{level=5;cls='on-high';desc='Высокий — отличная база для заявок. Конверсия 8–15%.'}
+  if(er<1){level=1;cls='on-low';desc='Очень низкий — аудитория почти не реагирует на контент.'}
+  else if(er<3){level=2;cls='on-low';desc='Низкий — небольшая активность. Аудитория читает, но не вовлекается.'}
+  else if(er<6){level=3;cls='on-mid';desc='Средний — есть реакции, аудитория живая.'}
+  else if(er<10){level=4;cls='on-good';desc='Хороший — активная аудитория, хорошая база для заявок.'}
+  else{level=5;cls='on-high';desc='Высокий — аудитория очень активная, максимальный потенциал.'}
 
   for(let i=0;i<level;i++) document.getElementById(bars[i]).className='eb '+cls;
   document.getElementById('eng-desc').textContent=desc;
@@ -478,17 +478,51 @@ async function submitForm(){
   const subs=getNum('n-subs')||1000;
   const eng=window._eng||{er:0,level:1,post:0,story:0,likes:0,comments:0};
 
-  const convRates=[0.01,0.02,0.04,0.06,0.12];
-  const conv=convRates[Math.max(0,eng.level-1)];
-  const reachForCalc=eng.post||subs*0.05;
-  const lMax=Math.round(reachForCalc*conv*12);
-  const lNow=Math.round(lMax*0.06);
-  const lLost=Math.max(0,lMax-lNow);
-  const sp=0.2;
-  const rMax=Math.round(lMax*sp*price);
-  const rLost=Math.round(lLost*sp*price);
+  // ── ПРАВИЛЬНАЯ МЕТОДОЛОГИЯ ──
+  // Шаг 1: % целевой аудитории в охвате по нише
+  const nicheTaPct=[0.20,0.35,0.28,0.32,0.22,0.20,0.25,0.18,0.22];
+  const taPct = nicheTaPct[ans[0]]||0.25;
 
-  window._res={lMax,lNow,lLost,rMax,rLost,eng,price};
+  // Шаг 2: конверсия охват→заявка зависит от ER
+  // Физическое ограничение: не может быть больше числа вовлечённых
+  const erConv=[0.002,0.005,0.010,0.015,0.020]; // по уровням 1-5
+  const convRate = erConv[Math.max(0,eng.level-1)];
+
+  const reachPost = eng.post || Math.round(subs*0.05);
+
+  // ЦА в охвате одного поста
+  const taPerPost = Math.round(reachPost * taPct);
+
+  // Заявок с одного поста (но не больше числа вовлечённых)
+  const engagedPerPost = eng.likes + eng.comments;
+  const leadsPerPost = Math.min(
+    Math.round(taPerPost * convRate),
+    Math.max(0, engagedPerPost)
+  );
+
+  // Период запуска 7–14 дней: ~3–4 поста + сторис-активация
+  const postsInLaunch = 3;
+  const storyBoost = eng.story > 0 ? 1.3 : 1.0; // сторис дают +30% если есть
+
+  // С системой (запуск с воронкой)
+  const leadsLaunchSystem = Math.round(leadsPerPost * postsInLaunch * storyBoost);
+
+  // Без системы — сейчас (примерно 5% от потенциала, т.к. нет призыва к действию)
+  const leadsLaunchNow = Math.max(0, Math.round(leadsLaunchSystem * 0.05));
+
+  const lostLeads = leadsLaunchSystem - leadsLaunchNow;
+
+  // Выручка: из заявок запуска → конверсия в продажу 20%
+  const salePct = 0.20;
+  const revSystem = Math.round(leadsLaunchSystem * salePct * price);
+  const revNow = Math.round(leadsLaunchNow * salePct * price);
+  const revLost = revSystem - revNow;
+
+  window._res={
+    leadsLaunchSystem, leadsLaunchNow, lostLeads,
+    revSystem, revNow, revLost,
+    eng, price, taPct, convRate, taPerPost, leadsPerPost
+  };
 
   const g=(q)=>QS[q]?.opts[ans[q]]?.t||'—';
   const msg=
@@ -512,11 +546,13 @@ async function submitForm(){
 🔥 ER: *${eng.er}%* (уровень ${eng.level}/5)
 
 ─────────────────
-📈 *Потенциал:*
-❌ Теряет заявок/мес: *${lLost}*
-✅ Мог бы получать: *${lMax}*
-💸 Теряет выручки: *${fmoney(rLost)}*
-🚀 Потенциал: *${fmoney(rMax)}*`;
+🧮 *Расчёт потенциала (запуск 7–14 дней):*
+🎯 ЦА в охвате: ${Math.round(taPct*100)}% → ${taPerPost} чел/пост
+📩 Заявок с поста: ${leadsPerPost}
+🚀 С системой за запуск: *${leadsLaunchSystem} заявок*
+😴 Сейчас без системы: *${leadsLaunchNow} заявок*
+💸 Упущенная выручка: *${fmoney(revLost)}*
+💰 Потенциал запуска: *${fmoney(revSystem)}*`;
 
   try{
     await fetch(`https://api.telegram.org/bot${BOT}/sendMessage`,{
@@ -537,31 +573,32 @@ function fmoney(n){
 
 function showResult(){
   const r=window._res;
-  const lo=Math.max(1,Math.round(r.lMax*.7));
+  const lo=Math.max(1,Math.round(r.leadsLaunchSystem*0.8));
+  const hi=r.leadsLaunchSystem;
 
   document.getElementById('rh').innerHTML=
-    `При текущих охватах вы могли бы получать <span class="hi">${lo}–${r.lMax} заявок в месяц.</span>`;
+    `При текущих охватах за запуск 7–14 дней вы могли бы получить <span class="hi">${lo}–${hi} заявок.</span>`;
 
   const bodies=[
-    'Сейчас вовлечённость очень низкая. Аудитория просто читает контент — нет системы, которая ведёт человека к заявке.',
-    'Низкая вовлечённость — конверсия 1–3%. Аудитория читает, но не делает следующего шага. Система монетизации не настроена.',
-    'Средняя вовлечённость — люди реагируют, но нет воронки, которая конвертирует их в заявки.',
-    'Хорошая вовлечённость — аудитория живая. Но без системы заявок активная аудитория просто читает и не покупает.',
-    'Высокая вовлечённость — большой актив. При правильной системе конверсия 8–15% реальна уже в первый месяц.',
+    'Вовлечённость очень низкая — аудитория читает, но не реагирует. Без системы активации даже тёплые подписчики не делают следующего шага.',
+    'Низкая вовлечённость — конверсия минимальная. Люди видят контент, но нет механизма, который ведёт их к заявке.',
+    'Средняя вовлечённость — хорошая база. При правильной системе запуска конверсия вырастет в 5–10 раз.',
+    'Хорошая вовлечённость — аудитория готова покупать. Нужна система, которая это монетизирует.',
+    'Высокая вовлечённость — это редкость. При системном запуске результат будет максимальным.',
   ];
   document.getElementById('rb').textContent=bodies[Math.max(0,r.eng.level-1)];
 
-  document.getElementById('mL').textContent=r.lLost;
-  document.getElementById('mG').textContent=r.lMax;
-  document.getElementById('mRL').textContent=fmoney(r.rLost);
-  document.getElementById('mRG').textContent=fmoney(r.rMax);
+  document.getElementById('mL').textContent=r.leadsLaunchNow;
+  document.getElementById('mG').textContent=r.leadsLaunchSystem;
+  document.getElementById('mRL').textContent=fmoney(r.revNow);
+  document.getElementById('mRG').textContent=fmoney(r.revSystem);
 
   const losts=[
-    `Система монетизации не настроена — <strong>${r.lLost} заявок в месяц</strong> просто теряются. Аудитория читает контент, но не знает, как к вам обратиться.`,
-    `Нет чёткого пути от контента к заявке. <strong>${r.lLost} потенциальных клиентов</strong> каждый месяц уходят, ничего не купив.`,
-    `Без воронки <strong>${r.lLost} заявок в месяц</strong> остаются на столе. Люди готовы, но не знают следующего шага.`,
-    `Даже при хорошей вовлечённости вы теряете <strong>${r.lLost} заявок в месяц</strong> из-за отсутствия системы.`,
-    `С вашей аудиторией вы теряете <strong>${r.lLost} горячих заявок каждый месяц</strong> только из-за отсутствия системы.`,
+    `Без системы активации <strong>${r.lostLeads} заявок за запуск</strong> просто не случится — аудитория не знает, что ей нужно написать вам.`,
+    `Нет пути от поста к заявке. <strong>${r.lostLeads} потенциальных клиентов</strong> за каждый запуск читают и уходят.`,
+    `Со средней вовлечённостью без воронки <strong>${r.lostLeads} заявок за запуск</strong> остаются на столе.`,
+    `Даже с хорошей аудиторией без системы запуска вы недополучаете <strong>${r.lostLeads} заявок</strong> каждые 2 недели.`,
+    `С вашей активной аудиторией каждый запуск без системы — это <strong>${r.lostLeads} потерянных заявок.</strong>`,
   ];
   document.getElementById('lt').innerHTML=losts[Math.max(0,r.eng.level-1)];
 
