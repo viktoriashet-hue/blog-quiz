@@ -478,50 +478,23 @@ async function submitForm(){
   const subs=getNum('n-subs')||1000;
   const eng=window._eng||{er:0,level:1,post:0,story:0,likes:0,comments:0};
 
-  // ── ПРАВИЛЬНАЯ МЕТОДОЛОГИЯ ──
-  // Шаг 1: % целевой аудитории в охвате по нише
-  const nicheTaPct=[0.20,0.35,0.28,0.32,0.22,0.20,0.25,0.18,0.22];
-  const taPct = nicheTaPct[ans[0]]||0.25;
-
-  // Шаг 2: конверсия охват→заявка зависит от ER
-  // Физическое ограничение: не может быть больше числа вовлечённых
-  const erConv=[0.002,0.005,0.010,0.015,0.020]; // по уровням 1-5
-  const convRate = erConv[Math.max(0,eng.level-1)];
-
-  const reachPost = eng.post || Math.round(subs*0.05);
-
-  // ЦА в охвате одного поста
-  const taPerPost = Math.round(reachPost * taPct);
-
-  // Заявок с одного поста (но не больше числа вовлечённых)
-  const engagedPerPost = eng.likes + eng.comments;
-  const leadsPerPost = Math.min(
-    Math.round(taPerPost * convRate),
-    Math.max(0, engagedPerPost)
-  );
-
-  // Период запуска 7–14 дней: ~3–4 поста + сторис-активация
-  const postsInLaunch = 3;
-  const storyBoost = eng.story > 0 ? 1.3 : 1.0; // сторис дают +30% если есть
-
-  // С системой (запуск с воронкой)
-  const leadsLaunchSystem = Math.round(leadsPerPost * postsInLaunch * storyBoost);
-
-  // Без системы — сейчас (примерно 5% от потенциала, т.к. нет призыва к действию)
-  const leadsLaunchNow = Math.max(0, Math.round(leadsLaunchSystem * 0.05));
-
+  // ── МЕТОДОЛОГИЯ ──
+  // Без системы: охват продажного поста × 5%
+  // С системой (прогрев): охват продажного поста × 10%
+  const reachPost = eng.post || Math.round(subs * 0.05);
+  const leadsLaunchNow    = Math.max(1, Math.round(reachPost * 0.05));
+  const leadsLaunchSystem = Math.round(reachPost * 0.10);
   const lostLeads = leadsLaunchSystem - leadsLaunchNow;
 
-  // Выручка: из заявок запуска → конверсия в продажу 20%
-  const salePct = 0.20;
+  // Выручка: заявки × конверсия в продажу 20%
+  const salePct  = 0.20;
+  const revNow    = Math.round(leadsLaunchNow    * salePct * price);
   const revSystem = Math.round(leadsLaunchSystem * salePct * price);
-  const revNow = Math.round(leadsLaunchNow * salePct * price);
-  const revLost = revSystem - revNow;
+  const revLost   = revSystem - revNow;
 
   window._res={
     leadsLaunchSystem, leadsLaunchNow, lostLeads,
-    revSystem, revNow, revLost,
-    eng, price, taPct, convRate, taPerPost, leadsPerPost
+    revSystem, revNow, revLost, eng, price
   };
 
   const g=(q)=>QS[q]?.opts[ans[q]]?.t||'—';
@@ -547,10 +520,9 @@ async function submitForm(){
 
 ─────────────────
 🧮 *Расчёт потенциала (запуск 7–14 дней):*
-🎯 ЦА в охвате: ${Math.round(taPct*100)}% → ${taPerPost} чел/пост
-📩 Заявок с поста: ${leadsPerPost}
-🚀 С системой за запуск: *${leadsLaunchSystem} заявок*
-😴 Сейчас без системы: *${leadsLaunchNow} заявок*
+👁 Охват продажного поста: ${reachPost}
+😴 Сейчас без системы (5%): *${leadsLaunchNow} заявок*
+🚀 С системой/прогревом (10%): *${leadsLaunchSystem} заявок*
 💸 Упущенная выручка: *${fmoney(revLost)}*
 💰 Потенциал запуска: *${fmoney(revSystem)}*`;
 
